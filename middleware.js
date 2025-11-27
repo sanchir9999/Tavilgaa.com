@@ -60,8 +60,12 @@ export async function middleware(req) {
             return NextResponse.next();
         }
 
-        // User Agent-ийг ойлгомжтой болгох
+        // 🔍 User Agent-аас дэлгэрэнгүй мэдээлэл задлах
         let deviceType = "Unknown";
+        let browserName = "Unknown";
+        let osName = "Unknown";
+
+        // Device type илрүүлэх
         if (userAgent.includes("Mobile") || userAgent.includes("Android") || userAgent.includes("iPhone")) {
             deviceType = "📱 Mobile";
         } else if (userAgent.includes("Tablet") || userAgent.includes("iPad")) {
@@ -72,12 +76,50 @@ export async function middleware(req) {
             deviceType = "💻 Desktop";
         }
 
-        // Log object үүсгэх
+        // Browser илрүүлэх
+        if (userAgent.includes("Chrome") && !userAgent.includes("Edg")) {
+            browserName = "Chrome";
+        } else if (userAgent.includes("Safari") && !userAgent.includes("Chrome")) {
+            browserName = "Safari";
+        } else if (userAgent.includes("Firefox")) {
+            browserName = "Firefox";
+        } else if (userAgent.includes("Edg")) {
+            browserName = "Edge";
+        } else if (userAgent.includes("Opera") || userAgent.includes("OPR")) {
+            browserName = "Opera";
+        } else if (userAgent.includes("Instagram")) {
+            browserName = "Instagram In-App";
+        } else if (userAgent.includes("Facebook")) {
+            browserName = "Facebook In-App";
+        }
+
+        // Operating System илрүүлэх
+        if (userAgent.includes("Windows NT 10")) {
+            osName = "Windows 10/11";
+        } else if (userAgent.includes("Windows NT")) {
+            osName = "Windows";
+        } else if (userAgent.includes("Mac OS X")) {
+            osName = "macOS";
+        } else if (userAgent.includes("iPhone OS") || userAgent.includes("CPU iPhone")) {
+            osName = "iOS";
+        } else if (userAgent.includes("Android")) {
+            osName = "Android";
+        } else if (userAgent.includes("Linux")) {
+            osName = "Linux";
+        }
+
+        // 🌐 Accept-Language хэлний мэдээлэл
+        const language = req.headers.get("accept-language")?.split(",")[0] || "Unknown";
+
+        // 📊 Log object үүсгэх - БҮГД НЭГ KEY ДОТОР
         const logEntry = {
             ip,
             path,
             userAgent,
             deviceType,
+            browserName,
+            osName,
+            language,
             referer,
             country,
             city,
@@ -88,27 +130,17 @@ export async function middleware(req) {
         // Console лог (Vercel logs-д харагдана)
         console.log("📊 NEW VISITOR:", JSON.stringify(logEntry, null, 2));
 
-        // Session үүсгэх (30 минут = 1800 секунд)
+        // Session үүсгэх (30 минут = 1800 секунд) - давхардал хянах зорилготой
         await redis.setex(sessionKey, 1800, "active").catch(err => {
             console.error("❌ Redis session error:", err);
         });
 
-        // Upstash-д хадгалах (асинхрон, хариуг хүлээхгүй)
+        // ✅ ЗӨВХӨН visit key үүсгэх - бусад counter үгүй
         const logKey = `visit:${Date.now()}:${Math.random().toString(36).substr(2, 9)}`;
 
-        // Background-д хадгалах (response-ийг удаашруулахгүй)
+        // Upstash-д хадгалах (7 хоног = 604800 секунд)
         redis.setex(logKey, 604800, JSON.stringify(logEntry)).catch(err => {
             console.error("❌ Redis error:", err);
-        });
-
-        // Visitor count нэмэх
-        redis.incr("total_visits").catch(err => {
-            console.error("❌ Redis counter error:", err);
-        });
-
-        // Path бүрээр тоолох
-        redis.incr(`path:${path}`).catch(err => {
-            console.error("❌ Redis path counter error:", err);
         });
 
     } catch (error) {
