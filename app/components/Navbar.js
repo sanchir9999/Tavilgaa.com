@@ -30,13 +30,29 @@ export const Navbar = () => {
                         <li><a href="#home" className="hover:text-blue-600 transition">Нүүр</a></li>
                     </Link>
 
-                    <Link href="/" legacyBehavior>
-                        <li><a href="#products" className="hover:text-blue-600 transition">Сандлууд</a></li>
-                    </Link>
+                    <li>
+                        <Link href="/category/chairs" legacyBehavior>
+                            <a className="hover:text-blue-600 transition">Сандлууд</a>
+                        </Link>
+                    </li>
 
-                    <Link href="/" legacyBehavior>
-                        <li><a href="#products" className="hover:text-blue-600 transition">Ширээнүүд</a></li>
-                    </Link>
+                    <li>
+                        <Link href="/category/tables" legacyBehavior>
+                            <a className="hover:text-blue-600 transition">Ширээнүүд</a>
+                        </Link>
+                    </li>
+
+                    <li>
+                        <Link href="/category/sets" legacyBehavior>
+                            <a className="hover:text-blue-600 transition">Багцууд</a>
+                        </Link>
+                    </li>
+
+                    <li>
+                        <Link href="/category/accessories" legacyBehavior>
+                            <a className="hover:text-blue-600 transition">Дагалдах</a>
+                        </Link>
+                    </li>
 
                     <li>
                         <Link href="/About" legacyBehavior>
@@ -75,10 +91,31 @@ export const Navbar = () => {
             {/* Mobile menu */}
             {menuOpen && (
                 <ul className="md:hidden bg-white/90 dark:bg-gray-900/90 backdrop-blur px-4 py-4 space-y-4 font-medium text-gray-700 dark:text-gray-200 border-b border-black/5 dark:border-white/10">
-                    <Link href="/" className="hover:text-blue-600 transition">
-                        Нүүр
-                    </Link>
-                    <li><a href="#products" className="block hover:text-blue-600 transition" onClick={() => setMenuOpen(false)}>Сандлууд</a></li>
+                    <li>
+                        <Link href="/" legacyBehavior>
+                            <a className="block hover:text-blue-600 transition" onClick={() => setMenuOpen(false)}>Нүүр</a>
+                        </Link>
+                    </li>
+                    <li>
+                        <Link href="/category/chairs" legacyBehavior>
+                            <a className="block hover:text-blue-600 transition" onClick={() => setMenuOpen(false)}>Сандлууд</a>
+                        </Link>
+                    </li>
+                    <li>
+                        <Link href="/category/tables" legacyBehavior>
+                            <a className="block hover:text-blue-600 transition" onClick={() => setMenuOpen(false)}>Ширээнүүд</a>
+                        </Link>
+                    </li>
+                    <li>
+                        <Link href="/category/sets" legacyBehavior>
+                            <a className="block hover:text-blue-600 transition" onClick={() => setMenuOpen(false)}>Багцууд</a>
+                        </Link>
+                    </li>
+                    <li>
+                        <Link href="/category/accessories" legacyBehavior>
+                            <a className="block hover:text-blue-600 transition" onClick={() => setMenuOpen(false)}>Дагалдах хэрэгсэл</a>
+                        </Link>
+                    </li>
                     <li>
                         <Link href="/About" legacyBehavior>
                             <a className="block hover:text-blue-600 transition" onClick={() => setMenuOpen(false)}>Бидний тухай</a>

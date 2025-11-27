@@ -17,7 +17,7 @@ export const Footer = () => {
                     <h3 className="text-lg font-semibold mb-2">Холбоо барих</h3>
                     <p className="text-sm">
                         Утас: <a href="tel:+97688175658" className="hover:text-white">+976 88175658</a><br />
-                        Утас: <a href="tel:+97699983923" className="hover:text-white">+976 99983923</a><br />
+
                         Утас: <a href="tel:+97699917208" className="hover:text-white">+976 99917208</a><br />
                         Имэйл: <a href="mailto:info@Tavilgaa.com" className="hover:text-white">info@Tavilgaa.com</a>
                     </p>

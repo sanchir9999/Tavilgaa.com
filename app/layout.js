@@ -10,20 +10,48 @@ import { Analytics } from '@vercel/analytics/next';
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
-  title: "Tavilgaa.com",
-  description: "Онлайн тавилгын дэлгүүр",
-  keywords: "тавилга, онлайн дэлгүүр, тавилгын худалдаа, тавилгын захиалга, тавилгын үйлчилгээ",
+  title: {
+    default: "Tavilgaa.com - Оффис Тавилга, Gaming Сандал, Ширээ | Монголын #1 Тавилгын Дэлгүүр",
+    template: "%s | Tavilgaa.com"
+  },
+  description: "🏢 Оффис тавилга, gaming сандал, ширээ, компьютерын ширээ сандал Монголд. Эргономик дизайн, чанартай материал, хямд үнэ. Улаанбаатарт 24 цагт хүргэлт. ☎️ Захиалах: 7777-7777",
+  keywords: [
+    "оффис тавилга",
+    "оффис сандал",
+    "оффис ширээ",
+    "gaming сандал",
+    "компьютерын сандал",
+    "эргономик сандал",
+    "ажлын ширээ",
+    "компьютерын ширээ",
+    "тавилга монгол",
+    "тавилга улаанбаатар",
+    "сандал худалдаа",
+    "ширээ сандал",
+    "оффисын тавилга",
+    "гэрийн тавилга",
+    "тавилгын дэлгүүр",
+    "тавилга захиалга",
+    "хямд тавилга",
+    "чанартай сандал",
+    "эргономик ширээ сандал",
+    "зочны сандал",
+    "сургалтын сандал"
+  ].join(", "),
+  authors: [{ name: "Tavilgaa.com" }],
+  creator: "Tavilgaa.com",
+  publisher: "Tavilgaa.com",
   openGraph: {
-    title: "Tavilgaa.com",
-    description: "Онлайн тавилгын дэлгүүр",
+    title: "Tavilgaa.com - Оффис Тавилга, Gaming Сандал, Ширээ | Монголын #1 Тавилгын Дэлгүүр",
+    description: "🏢 Оффис тавилга, gaming сандал, ширээ, компьютерын ширээ сандал Монголд. Эргономик дизайн, чанартай материал, хямд үнэ. Улаанбаатарт 24 цагт хүргэлт.",
     url: "https://tavilgaa.com",
-    siteName: "Tavilgaa.com",
+    siteName: "Tavilgaa.com - Монголын Тавилгын Дэлгүүр",
     images: [
       {
         url: "https://tavilgaa.com/og-image.png",
         width: 1200,
         height: 630,
-        alt: "Tavilgaa.com - Онлайн тавилгын дэлгүүр",
+        alt: "Tavilgaa.com - Оффис Тавилга, Gaming Сандал, Ширээ",
       },
     ],
     locale: "mn_MN",
@@ -31,8 +59,8 @@ export const metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Tavilgaa.com",
-    description: "Онлайн тавилгын дэлгүүр",
+    title: "Tavilgaa.com - Оффис Тавилга, Gaming Сандал, Ширээ",
+    description: "🏢 Оффис тавилга, gaming сандал, ширээ Монголд. Эргономик дизайн, чанартай материал, хямд үнэ.",
     images: ["https://tavilgaa.com/og-image.png"],
   },
   icons: {
@@ -45,6 +73,13 @@ export const metadata = {
     index: true,
     follow: true,
     nocache: false,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
   },
   appleWebApp: {
     capable: true,
@@ -63,8 +98,7 @@ export const metadata = {
   alternates: {
     canonical: "https://tavilgaa.com",
     languages: {
-      en: "https://tavilgaa.com/en",
-      mn: "https://tavilgaa.com/mn",
+      'mn-MN': "https://tavilgaa.com",
     },
   },
   verification: {
@@ -72,6 +106,8 @@ export const metadata = {
     yandex: "yandex-verification-code",
     bing: "bing-site-verification-code",
   },
+  category: "furniture",
+  classification: "Оффис тавилга, Gaming сандал, Ширээ, Тавилгын дэлгүүр",
 };
 
 // Шинэ шаардлагын дагуу viewport ба themeColor-ийг энд тусад нь дамжуулна
@@ -88,8 +124,37 @@ export const generateViewport = () => {
 };
 
 export default function RootLayout({ children }) {
+  const organizationSchema = {
+    "@context": "https://schema.org",
+    "@type": "FurnitureStore",
+    "name": "Tavilgaa.com",
+    "description": "Оффис тавилга, gaming сандал, ширээ сандал Монголд",
+    "url": "https://tavilgaa.com",
+    "logo": "https://tavilgaa.com/logo.png",
+    "image": "https://tavilgaa.com/og-image.png",
+    "telephone": "+976-7777-7777",
+    "email": "info@tavilgaa.com",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Улаанбаатар хот",
+      "addressLocality": "Улаанбаатар",
+      "addressCountry": "MN"
+    },
+    "priceRange": "₮₮₮",
+    "sameAs": [
+      "https://www.facebook.com/tavilgaa",
+      "https://www.instagram.com/tavilgaa"
+    ]
+  };
+
   return (
-    <html lang="en">
+    <html lang="mn">
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
+        />
+      </head>
       <body className={`${inter.className} bg-white text-gray-800 dark:bg-gray-900 dark:text-gray-200`}>
         <ThemeProvider>
           <Navbar />

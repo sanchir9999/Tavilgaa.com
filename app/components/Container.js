@@ -14,7 +14,7 @@ import { Badge } from "@/components/ui/badge";
  * @property {string} price
  * @property {string} imageUrl
  * @property {boolean} available
- * @property {"chair"|"table"} category
+ * @property {"chair"|"table"|"set"|"accessory"} category
  */
 
 /** @type {Product[]} */
@@ -133,10 +133,54 @@ const tables = [
     },
 ];
 
-const PRODUCTS = [...chairs, ...tables];
+/** @type {Product[]} */
+const sets = [
+    {
+        slug: "pc-desk-set",
+        name: "Компьютерын ширээ сандал багц",
+        price: "₮300,000",
+        imageUrl:
+            "https://res.cloudinary.com/ddyif81ff/image/upload/v1751379232/d4651328-edfc-47dd-94f3-4815eb22ae9c_ujvtjz.jpg",
+        available: true,
+        category: "set",
+    },
+    {
+        slug: "office-set-deluxe",
+        name: "Оффис багц (Deluxe)",
+        price: "₮650,000",
+        imageUrl:
+            "https://res.cloudinary.com/ddyif81ff/image/upload/v1750851610/2811ca9e0577ebaf2a33354fd9d4e0c7_yofpof.jpg",
+        available: true,
+        category: "set",
+    },
+];
+
+/** @type {Product[]} */
+const accessories = [
+    {
+        slug: "desk-lamp",
+        name: "Ширээний Чийдэн",
+        price: "₮45,000",
+        imageUrl:
+            "https://res.cloudinary.com/ddyif81ff/image/upload/v1748864027/69b525492207e6f404341e8887e3b810_kgaxp2.jpg",
+        available: true,
+        category: "accessory",
+    },
+    {
+        slug: "cushion-pad",
+        name: "Сандлын Дэвсгэр",
+        price: "₮25,000",
+        imageUrl:
+            "https://res.cloudinary.com/ddyif81ff/image/upload/v1748438803/24-0228795_kr64kz.jpg",
+        available: true,
+        category: "accessory",
+    },
+];
+
+const PRODUCTS = [...chairs, ...tables, ...sets, ...accessories];
 
 const Section = ({ title, subtitle, children }) => (
-    <section className="container mx-auto max-w-7xl px-3 sm:px-6 md:px-8 py-10 md:py-14">
+    <section className="container mx-auto max-w-7xl px-3 sm:px-6 md:px-8 py-5 md:py-14">
         <div className="mb-6 md:mb-8 text-center">
             <h2 className="text-2xl md:text-3xl font-bold tracking-tight">{title}</h2>
             {/* Subtitle hidden to keep UI concise */}
@@ -184,51 +228,15 @@ const ProductCard = ({ product }) => (
             </div>
             <p className="mt-1 text-xs md:text-sm text-muted-foreground">{product.price}</p>
 
-            <div className="mt-auto pt-3">
+            <div className="flex justify-center mt-auto mt-8">
                 <Link href={`/products/${product.slug}`}>
-                    <Button className="w-full">Захиалах</Button>
+                    <Button>Захиалах</Button>
                 </Link>
             </div>
         </div>
     </motion.div>
 );
 
-const PartnerStrip = () => {
-    const partners = [
-        { name: "ErgoForm", logo: "/partners/ergoform.svg" },
-        { name: "HomePro", logo: "/partners/homepro.svg" },
-        { name: "DesignLab", logo: "/partners/designlab.svg" },
-        { name: "OfficePlus", logo: "/partners/officeplus.svg" },
-        { name: "WoodWorks", logo: "/partners/woodworks.svg" },
-    ];
-
-    return (
-        <div className="border-y bg-white/70 dark:bg-gray-900/50 dark:border-white/10 backdrop-blur">
-            <div className="container mx-auto max-w-7xl px-3 sm:px-6 md:px-8 py-6">
-                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-6 items-center">
-                    {partners.map((p) => (
-                        <div
-                            key={p.name}
-                            className="flex items-center justify-center opacity-70 hover:opacity-100 transition"
-                        >
-                            {p.logo ? (
-                                <Image
-                                    src={p.logo}
-                                    alt={p.name}
-                                    width={140}
-                                    height={36}
-                                    className="object-contain"
-                                />
-                            ) : (
-                                <span className="text-sm font-medium">{p.name}</span>
-                            )}
-                        </div>
-                    ))}
-                </div>
-            </div>
-        </div>
-    );
-};
 
 const CategoryChips = ({ active, onChange }) => (
     <div className="flex flex-wrap items-center justify-center gap-2">
@@ -236,6 +244,8 @@ const CategoryChips = ({ active, onChange }) => (
             { key: "all", label: "Бүгд" },
             { key: "chair", label: "Сандлууд" },
             { key: "table", label: "Ширээнүүд" },
+            { key: "set", label: "Багцууд" },
+            { key: "accessory", label: "Дагалдах хэрэгсэл" },
         ].map((c) => (
             <Button
                 key={c.key}
@@ -265,7 +275,7 @@ export default function Container() {
             <header className="relative overflow-hidden">
                 <div className="absolute inset-0 -z-10 bg-[radial-gradient(80%_50%_at_50%_0%,rgba(59,130,246,0.12),transparent)]" />
                 <Section
-                    title="Орчин үеийн тавилгын цуглуулга"
+                    title="Таны хэрэгцээг бид хангана"
                     subtitle="Эргоном загвар, чанартай материал, шуурхай нийлүүлэлт — бизнес ба гэрийн орчинд тохирох шийдлүүд."
                 >
                     <div className="flex flex-col items-center gap-4">
@@ -275,14 +285,26 @@ export default function Container() {
                         </div>
                         <div className="mt-2">
                             <Link href="#products">
-                                <Button size="lg" className="rounded-full">
-                                    Бүтээгдэхүүн үзэх
+                                <Button
+                                    size="lg"
+                                    className="rounded-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300 px-8 py-6 text-lg relative overflow-hidden group"
+                                >
+                                    <span className="relative z-10 flex items-center gap-3">
+                                        <svg className="w-6 h-6 group-hover:rotate-12 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                                        </svg>
+                                        Бүтээгдэхүүн үзэх
+                                        <svg className="w-6 h-6 group-hover:-rotate-12 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                                        </svg>
+                                    </span>
+                                    <span className="absolute inset-0 bg-gradient-to-r from-purple-600 to-pink-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-full" />
                                 </Button>
                             </Link>
                         </div>
                     </div>
                 </Section>
-                <PartnerStrip />
+
             </header>
 
             {/* Гол ангиллууд */}

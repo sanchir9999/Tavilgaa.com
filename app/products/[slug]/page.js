@@ -3,6 +3,7 @@
 import { useParams } from "next/navigation";
 import { useState } from "react";
 import Ordermodel from "@/components/Ordermodel/Ordermodel";
+import { Button } from "@/components/ui/button";
 
 const products = [
     {
@@ -125,12 +126,13 @@ export default function ProductPage() {
                             </p>
                         </div>
 
-                        <button
+                        <Button
+                            size="lg"
                             onClick={() => setIsOpen(true)}
-                            className="mt-6 bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded transition"
+                            className="mt-6 w-full"
                         >
                             Захиалах
-                        </button>
+                        </Button>
                     </div>
                 </div>
             </div>

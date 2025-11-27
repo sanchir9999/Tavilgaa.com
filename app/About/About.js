@@ -22,7 +22,7 @@ export default function About() {
       <section className="container mx-auto max-w-7xl px-4 sm:px-6 md:px-8 pb-10 md:pb-14">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
           <div>
-            <h2 className="text-2xl md:text-3xl font-bold">Бид хэн бэ?</h2>
+            <h2 className="text-2xl md:text-3xl font-bold">Бидний тухай</h2>
             <p className="mt-3 text-sm md:text-base text-muted-foreground">
               Бид оффис, хамтран ажиллах орон зайд зориулсан бат бөх, загварлаг
               тавилгыг оновчтой шийдлээр нийлүүлдэг. Хурдан хүргэлт, найдвартай
@@ -44,7 +44,7 @@ export default function About() {
 
         {/* Stats */}
         <div className="mt-8 grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
-          {[{k:"Жилийн туршлага",v:"5+"},{k:"Төслүүд",v:"120+"},{k:"Харилцагчид",v:"300+"},{k:"Сэтгэл ханамж",v:"98%"}].map((s,i)=> (
+          {[{ k: "Жилийн туршлага", v: "5+" }, { k: "Төслүүд", v: "120+" }, { k: "Харилцагчид", v: "300+" }, { k: "Сэтгэл ханамж", v: "98%" }].map((s, i) => (
             <div key={i} className="rounded-xl bg-white dark:bg-gray-800 p-4 shadow-sm text-center">
               <div className="text-2xl font-extrabold">{s.v}</div>
               <div className="text-xs text-muted-foreground mt-1">{s.k}</div>
@@ -58,15 +58,15 @@ export default function About() {
         <h3 className="text-xl md:text-2xl font-bold text-center">Бидний үнэт зүйлс</h3>
         <div className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-4">
           {[{
-            t:"Чанар",
-            d:"Материал, угсралт, шалгалтыг стандартын дагуу хийдэг.",
-          },{
-            t:"Загвар",
-            d:"Орчин үеийн минимал хэв маяг, алсын хэрэглээг тооцсон дизайн.",
-          },{
-            t:"Үйлчилгээ",
-            d:"Хурдан хүргэлт, найдвартай баталгаа, уян захиалгын нөхцөл.",
-          }].map((v,i)=> (
+            t: "Чанар",
+            d: "Материал, угсралт, шалгалтыг стандартын дагуу хийдэг.",
+          }, {
+            t: "Загвар",
+            d: "Орчин үеийн минимал хэв маяг, алсын хэрэглээг тооцсон дизайн.",
+          }, {
+            t: "Үйлчилгээ",
+            d: "Хурдан хүргэлт, найдвартай баталгаа, уян захиалгын нөхцөл.",
+          }].map((v, i) => (
             <div key={i} className="rounded-2xl bg-white dark:bg-gray-800 p-5 shadow-sm">
               <div className="text-lg font-semibold">{v.t}</div>
               <p className="text-sm text-muted-foreground mt-2">{v.d}</p>
