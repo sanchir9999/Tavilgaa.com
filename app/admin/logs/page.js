@@ -157,13 +157,28 @@ export default function AdminLogsPage() {
                                 </tr>
                             </thead>
                             <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
-                                {logs.map((log, idx) => (
+                                {logs.map((log, idx) => {
+                                    // UTC-ээс Монголын цаг руу хөрвүүлэх (UTC+8)
+                                    const utcDate = new Date(log.timestamp);
+                                    const mongolTime = new Date(utcDate.getTime() + (8 * 60 * 60 * 1000));
+                                    const formattedTime = mongolTime.toLocaleString("mn-MN", {
+                                        year: 'numeric',
+                                        month: '2-digit',
+                                        day: '2-digit',
+                                        hour: '2-digit',
+                                        minute: '2-digit',
+                                        second: '2-digit',
+                                        hour12: false
+                                    });
+
+                                    return (
                                     <tr
                                         key={idx}
                                         className="hover:bg-gray-50 dark:hover:bg-gray-700 transition"
                                     >
                                         <td className="px-4 py-3 text-sm text-gray-900 dark:text-gray-100">
-                                            {new Date(log.timestamp).toLocaleString("mn-MN")}
+                                            {formattedTime}
+                                            <div className="text-xs text-gray-500">UB цаг</div>
                                         </td>
                                         <td className="px-4 py-3 text-sm font-mono text-blue-600 dark:text-blue-400">
                                             {log.ip}
@@ -176,11 +191,17 @@ export default function AdminLogsPage() {
                                         <td className="px-4 py-3 text-sm text-gray-700 dark:text-gray-300">
                                             {log.country} / {log.city}
                                         </td>
-                                        <td className="px-4 py-3 text-sm text-gray-600 dark:text-gray-400 truncate max-w-xs">
-                                            {log.userAgent.includes("Mobile") ? "📱 Mobile" : "💻 Desktop"}
+                                        <td className="px-4 py-3 text-sm text-gray-600 dark:text-gray-400">
+                                            <div className="flex items-center gap-2">
+                                                <span>{log.deviceType || (log.userAgent?.includes("Mobile") ? "📱 Mobile" : log.userAgent?.includes("bot") || log.userAgent?.includes("vercel") ? "🤖 Bot" : "💻 Desktop")}</span>
+                                            </div>
+                                            <div className="text-xs text-gray-500 mt-1 truncate max-w-xs" title={log.userAgent}>
+                                                {log.userAgent?.substring(0, 40)}...
+                                            </div>
                                         </td>
                                     </tr>
-                                ))}
+                                    );
+                                })}
                             </tbody>
                         </table>
                     </div>

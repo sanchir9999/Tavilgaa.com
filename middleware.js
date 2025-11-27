@@ -2,29 +2,40 @@ import { NextResponse } from "next/server";
 import { redis } from "./lib/redis.js";
 
 export async function middleware(req) {
-    try {
-        // Visitor мэдээлэл цуглуулах
-        const ip = req.headers.get("x-forwarded-for")?.split(",")[0] || req.ip || "Unknown IP";
-        const path = req.nextUrl.pathname;
-        const userAgent = req.headers.get("user-agent") || "Unknown";
-        const referer = req.headers.get("referer") || "Direct";
-        const country = req.geo?.country || "Unknown";
-        const city = req.geo?.city || "Unknown";
-        const timestamp = new Date().toISOString();
+  try {
+    // Visitor мэдээлэл цуглуулах
+    const ip = req.headers.get("x-forwarded-for")?.split(",")[0] || req.ip || "Unknown IP";
+    const path = req.nextUrl.pathname;
+    const userAgent = req.headers.get("user-agent") || "Unknown";
+    const referer = req.headers.get("referer") || "Direct";
+    const country = req.geo?.country || "Unknown";
+    const city = req.geo?.city || "Unknown";
+    const timestamp = new Date().toISOString();
+    
+    // User Agent-ийг ойлгомжтой болгох
+    let deviceType = "Unknown";
+    if (userAgent.includes("Mobile") || userAgent.includes("Android") || userAgent.includes("iPhone")) {
+      deviceType = "📱 Mobile";
+    } else if (userAgent.includes("Tablet") || userAgent.includes("iPad")) {
+      deviceType = "📱 Tablet";
+    } else if (userAgent.includes("bot") || userAgent.includes("crawler") || userAgent.includes("spider") || userAgent.includes("vercel")) {
+      deviceType = "🤖 Bot";
+    } else if (userAgent.includes("Windows") || userAgent.includes("Macintosh") || userAgent.includes("Linux")) {
+      deviceType = "💻 Desktop";
+    }
 
-        // Log object үүсгэх
-        const logEntry = {
-            ip,
-            path,
-            userAgent,
-            referer,
-            country,
-            city,
-            timestamp,
-            method: req.method,
-        };
-
-        // Console лог (Vercel logs-д харагдана)
+    // Log object үүсгэх
+    const logEntry = {
+      ip,
+      path,
+      userAgent,
+      deviceType,
+      referer,
+      country,
+      city,
+      timestamp,
+      method: req.method,
+    };        // Console лог (Vercel logs-д харагдана)
         console.log("📊 VISITOR:", JSON.stringify(logEntry, null, 2));
 
         // Upstash-д хадгалах (асинхрон, хариуг хүлээхгүй)
