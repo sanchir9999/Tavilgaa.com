@@ -342,6 +342,17 @@ export default function Container() {
 
             {/* Шүүлтүүртэй бүтээгдэхүүн */}
             <Section title="Онцлох бүтээгдэхүүн" subtitle="Бэлэн бараа ба урьдчилсан захиалга">
+                {/* SEO агуулга */}
+                <div className="mb-8 text-center max-w-4xl mx-auto">
+                    <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
+                        Монголд <strong>оффис тавилга</strong>, <strong>оффис сандал</strong>, <strong>оффис ширээ</strong>,
+                        <strong> gaming сандал</strong>, <strong>компьютерын ширээ сандал</strong> хайж байна уу?
+                        Tavilgaa.com нь Улаанбаатар хотод эргономик дизайнтай, чанартай материалаар хийгдсэн
+                        <strong> ширээ сандал</strong>, <strong>тавилга</strong> худалдаалдаг Монголын тэргүүлэх онлайн дэлгүүр юм.
+                        Бид <strong>хямд үнэ</strong>-тэй, шуурхай хүргэлттэй үйлчилгээ үзүүлдэг.
+                    </p>
+                </div>
+
                 <div className="mb-6">
                     <CategoryChips active={category} onChange={setCategory} />
                 </div>

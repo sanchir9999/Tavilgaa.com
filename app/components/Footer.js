@@ -8,7 +8,11 @@ export const Footer = () => {
                 {/* Лого / нэр */}
                 <div>
                     <h2 className="text-xl font-bold mb-2">Tavilgaa.com</h2>
-                    <p className="text-sm text-gray-400">Таны тавилгын найдвартай сонголт.</p>
+                    <p className="text-sm text-gray-400">
+                        Монголд <strong>оффис тавилга</strong>, <strong>ширээ сандал</strong>,
+                        <strong> gaming сандал</strong> худалдах онлайн дэлгүүр.
+                        Улаанбаатарт хүргэлттэй.
+                    </p>
                     <p className="mt-2 text-xs text-gray-500">&copy; {new Date().getFullYear()} Бүх эрх хуулиар хамгаалагдсан.</p>
                 </div>
 

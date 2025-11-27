@@ -102,9 +102,12 @@ export const metadata = {
     },
   },
   verification: {
-    google: "google-site-verification-code",
+    google: "your-google-verification-code-here", // Google Search Console-оос авна
     yandex: "yandex-verification-code",
     bing: "bing-site-verification-code",
+  },
+  other: {
+    'google-site-verification': 'your-google-verification-code-here', // Нэмэлт
   },
   category: "furniture",
   classification: "Оффис тавилга, Gaming сандал, Ширээ, Тавилгын дэлгүүр",

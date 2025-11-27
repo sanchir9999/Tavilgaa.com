@@ -172,34 +172,34 @@ export default function AdminLogsPage() {
                                     });
 
                                     return (
-                                    <tr
-                                        key={idx}
-                                        className="hover:bg-gray-50 dark:hover:bg-gray-700 transition"
-                                    >
-                                        <td className="px-4 py-3 text-sm text-gray-900 dark:text-gray-100">
-                                            {formattedTime}
-                                            <div className="text-xs text-gray-500">UB цаг</div>
-                                        </td>
-                                        <td className="px-4 py-3 text-sm font-mono text-blue-600 dark:text-blue-400">
-                                            {log.ip}
-                                        </td>
-                                        <td className="px-4 py-3 text-sm text-gray-900 dark:text-gray-100">
-                                            <code className="bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded">
-                                                {log.path}
-                                            </code>
-                                        </td>
-                                        <td className="px-4 py-3 text-sm text-gray-700 dark:text-gray-300">
-                                            {log.country} / {log.city}
-                                        </td>
-                                        <td className="px-4 py-3 text-sm text-gray-600 dark:text-gray-400">
-                                            <div className="flex items-center gap-2">
-                                                <span>{log.deviceType || (log.userAgent?.includes("Mobile") ? "📱 Mobile" : log.userAgent?.includes("bot") || log.userAgent?.includes("vercel") ? "🤖 Bot" : "💻 Desktop")}</span>
-                                            </div>
-                                            <div className="text-xs text-gray-500 mt-1 truncate max-w-xs" title={log.userAgent}>
-                                                {log.userAgent?.substring(0, 40)}...
-                                            </div>
-                                        </td>
-                                    </tr>
+                                        <tr
+                                            key={idx}
+                                            className="hover:bg-gray-50 dark:hover:bg-gray-700 transition"
+                                        >
+                                            <td className="px-4 py-3 text-sm text-gray-900 dark:text-gray-100">
+                                                {formattedTime}
+                                                <div className="text-xs text-gray-500">UB цаг</div>
+                                            </td>
+                                            <td className="px-4 py-3 text-sm font-mono text-blue-600 dark:text-blue-400">
+                                                {log.ip}
+                                            </td>
+                                            <td className="px-4 py-3 text-sm text-gray-900 dark:text-gray-100">
+                                                <code className="bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded">
+                                                    {log.path}
+                                                </code>
+                                            </td>
+                                            <td className="px-4 py-3 text-sm text-gray-700 dark:text-gray-300">
+                                                {log.country} / {log.city}
+                                            </td>
+                                            <td className="px-4 py-3 text-sm text-gray-600 dark:text-gray-400">
+                                                <div className="flex items-center gap-2">
+                                                    <span>{log.deviceType || (log.userAgent?.includes("Mobile") ? "📱 Mobile" : log.userAgent?.includes("bot") || log.userAgent?.includes("vercel") ? "🤖 Bot" : "💻 Desktop")}</span>
+                                                </div>
+                                                <div className="text-xs text-gray-500 mt-1 truncate max-w-xs" title={log.userAgent}>
+                                                    {log.userAgent?.substring(0, 40)}...
+                                                </div>
+                                            </td>
+                                        </tr>
                                     );
                                 })}
                             </tbody>
